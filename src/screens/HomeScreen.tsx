@@ -1,17 +1,28 @@
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Button, Text, View } from 'react-native'
+import { ActivityIndicator, Text, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Loading } from '../components/Loading'
+import { MoviePoster } from '../components/MoviePoster'
+import { useMovies } from '../hooks/useMovies'
 
 export const HomeScreen = () => {
-    const navigation = useNavigation()
+    const { peliculasCine ,loading } = useMovies()
+    const { top } = useSafeAreaInsets()
+
+
+    if( loading ) {
+        return (
+            <Loading />
+        )
+    }
   return (
-        <View>
+        <View style={ {
+            marginTop : top + 20
+        } }>
             <Text>
-                home Screen
+                <MoviePoster movie={ peliculasCine[0] } />
             </Text>
-            <Button 
-                title='ir detalle'
-                onPress={ () => navigation.navigate( 'DetailScreen' ) }/>
+         
         </View>
     )
 }
