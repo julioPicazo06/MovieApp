@@ -9,8 +9,8 @@ export const useMovies = () => {
     const [peliculasCine, setPeliculasCine] = useState<Movie[]>([])
 
     const getMovies = async () => {
-        const res = await movieDB.get<MovieDBNowPlaying>('/now_playing')
-        setPeliculasCine(res.data.results)
+        const { data:{ results } } = await movieDB.get<MovieDBNowPlaying>('/now_playing')
+        setPeliculasCine(results)
         setLoading(false)
     }
 
